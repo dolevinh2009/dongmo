@@ -1,1 +1,2 @@
-close
+status=closed
+message=Tool đang bảo trì, quay lại sau nhé.
