@@ -1,0 +1,34 @@
+name: Quản lý Trạng Thái Tool
+
+on:
+  push:
+    paths:
+      - status.txt
+  workflow_dispatch:
+
+jobs:
+  cap_nhat_trang_thai:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Kiểm tra mã nguồn
+      uses: actions/checkout@v2
+
+    - name: Đọc trạng thái từ file status.txt
+      id: doc_trang_thai
+      run: |
+        TRANG_THAI=$(cat status.txt)
+        echo "Trạng thái hiện tại: $TRANG_THAI"
+        echo "::set-output name=status::$TRANG_THAI"
+
+    - name: Thực hiện hành động dựa trên trạng thái
+      run: |
+        if [ "${{ steps.doc_trang_thai.outputs.status }}" == "open" ]; then
+          echo "Mở tool..."
+          # Thực hiện lệnh mở tool ở đây
+        elif [ "${{ steps.doc_trang_thai.outputs.status }}" == "close" ]; then
+          echo "Đóng tool..."
+          # Thực hiện lệnh đóng tool ở đây
+        else
+          echo "Trạng thái trong status.txt không hợp lệ"
+        fi
