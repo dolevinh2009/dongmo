@@ -1,2 +1,1 @@
-status=open
-message=Tool đang hoạt động bình thường.
+open
